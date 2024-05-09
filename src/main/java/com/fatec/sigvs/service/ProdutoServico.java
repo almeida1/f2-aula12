@@ -1,5 +1,6 @@
 package com.fatec.sigvs.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.sigvs.model.IProdutoRepository;
 import com.fatec.sigvs.model.Produto;
 
 @Service
@@ -18,19 +18,19 @@ public class ProdutoServico implements IProdutoServico {
 
     @Override
     public List<Produto> consultaCatalogo() {
-        // TODO Auto-generated method stub
-        return null;
+
+        return new ArrayList<>();
     }
 
     public List<Produto> consultaProduto() {
-        List<Produto> listaDeProdutos = produtoRepository.findAll();
-        return listaDeProdutos;
+
+        return produtoRepository.findAll();
     }
 
     @Override
     public List<Produto> consultaPorDescricao(String descricao) {
-        // TODO Auto-generated method stub
-        return null;
+
+        return new ArrayList<>();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class ProdutoServico implements IProdutoServico {
                 .orElseThrow(() -> new IllegalArgumentException("Produto não cadastrado"));
         produto.setDescricao(produtoAtualizado.getDescricao());
         produto.setCategoria(produtoAtualizado.getCategoria());
-        produto.setQuantidadeNoEstoque(produtoAtualizado.getQuantidadeNoEstoque());
-        produto.setCusto(produtoAtualizado.getCusto());
+        produto.setQuantidadeNoEstoque(String.valueOf(produtoAtualizado.getQuantidadeNoEstoque()));
+        produto.setCusto(String.valueOf(produtoAtualizado.getCusto()));
         return Optional.ofNullable(produtoRepository.save(produto));
     }
 
